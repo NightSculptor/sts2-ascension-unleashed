@@ -744,9 +744,13 @@ namespace AnimeSurvivalMod
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            if (!cardPlay.Target.IsAlive || (targetOldBlock > 0 && cardPlay.Target.Block == 0))
+            if (CombatState != null && Owner != null && (!cardPlay.Target.IsAlive || (targetOldBlock > 0 && cardPlay.Target.Block == 0)))
             {
-                var copy = (CardModel)CanonicalInstance.MutableClone();
+                var copy = CombatState.CreateCard<UnstoppableRampage>(Owner);
+                if (IsUpgraded)
+                {
+                    CardCmd.Upgrade(copy);
+                }
                 copy.EnergyCost.SetThisTurn(0, reduceOnly: true);
                 await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, Owner);
             }
