@@ -30,7 +30,7 @@
 
 ## 📥 Installation
 
-1. Download the latest `mods.zip` from [Releases](https://github.com/).
+1. Download the latest `mods.zip` from [Releases](https://github.com/NightSculptor/sts2-ascension-unleashed/releases/latest) (or direct link: [mods.zip](https://github.com/NightSculptor/sts2-ascension-unleashed/releases/download/v1.0.0/mods.zip)).
 2. Extract the archive into your game's root directory:
    ```
    <Slay The Spire 2 Directory>/mods/AnimeSurvivalMod/
