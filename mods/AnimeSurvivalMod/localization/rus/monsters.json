@@ -1,0 +1,14 @@
+{
+  "monsters": {
+    "CHRONO_WARDEN": {
+      "name": "Статуя Диониса",
+      "moves": {
+        "CHRONO_1": { "title": "Сокрушение" },
+        "CHRONO_2": { "title": "Каменная стойка" },
+        "CHRONO_3": { "title": "Раскалывание" },
+        "CHRONO_4": { "title": "Окаменение" },
+        "CHRONO_ESCAPE": { "title": "Вознесение" }
+      }
+    }
+  }
+}

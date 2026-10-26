@@ -1,0 +1,11 @@
+{
+  "id": "AnimeSurvivalMod",
+  "name": "Ascension Unleashed",
+  "author": "White",
+  "description": "Ascension Unleashed: 75 custom cards across all 5 characters, 9 Act bosses, custom encounters and mechanics.",
+  "version": "1.0.0",
+  "has_pck": false,
+  "has_dll": true,
+  "affects_gameplay": true,
+  "min_game_version": "0.1.0"
+}

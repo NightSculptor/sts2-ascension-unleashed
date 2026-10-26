@@ -1,0 +1,14 @@
+{
+  "monsters": {
+    "CHRONO_WARDEN": {
+      "name": "Statue of Dionysus",
+      "moves": {
+        "CHRONO_1": { "title": "Smite" },
+        "CHRONO_2": { "title": "Stone Stance" },
+        "CHRONO_3": { "title": "Sunder" },
+        "CHRONO_4": { "title": "Petrify" },
+        "CHRONO_ESCAPE": { "title": "Ascension" }
+      }
+    }
+  }
+}
