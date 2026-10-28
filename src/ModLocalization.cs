@@ -337,6 +337,14 @@ namespace AnimeSurvivalMod
             { "NULL_EDICT_POWER_ATK.description", "Forbidden to play [gold]Attacks[/gold] this turn! Playing Attacks deals 6 unblockable damage to you and gives Executioner +1 Strength." },
             { "NULL_EDICT_POWER_SKILL.description", "Forbidden to play [gold]Skills[/gold] this turn! Playing Skills deals 6 unblockable damage to you and gives Executioner +1 Strength." },
 
+            { "RUNIC_CUBE.name", "The Runic Cube" },
+            { "RUNIC_CUBE.title", "The Runic Cube" },
+            { "RUNIC_CUBE_BOSS.name", "The Runic Cube" },
+            { "RUNIC_CUBE_BOSS.title", "The Runic Cube" },
+            { "RUNIC_CUBE.moves.RUNIC_BASTION.title", "Runic Bastion" },
+            { "RUNIC_CUBE.moves.BLADE_MATRIX.title", "Blade Matrix" },
+            { "RUNIC_CUBE.moves.HEX_EXECUTION.title", "Hex Execution" },
+
             // --- Act 3 Bosses ---
             { "CHRONOS_TITAN.name", "The Chronos Titan" },
             { "CHRONOS_TITAN.title", "The Chronos Titan" },
@@ -891,6 +899,14 @@ namespace AnimeSurvivalMod
             { "NULL_EDICT_POWER.description", "В текущем ходу запрещает разыгрывать карты определенного типа (Атаки или Навыки). Розыгрыш запрещенной карты наносит вам 6 неблокируемого урона и дает Палачу +1 Силы." },
             { "NULL_EDICT_POWER_ATK.description", "В этом ходу запрещены [gold]Атаки[/gold]! Розыгрыш Атак наносит вам 6 неблокируемого урона и дает Палачу +1 Силы." },
             { "NULL_EDICT_POWER_SKILL.description", "В этом ходу запрещены [gold]Навыки[/gold]! Розыгрыш Навыков наносит вам 6 неблокируемого урона и дает Палачу +1 Силы." },
+
+            { "RUNIC_CUBE.name", "Рунический Куб" },
+            { "RUNIC_CUBE.title", "Рунический Куб" },
+            { "RUNIC_CUBE_BOSS.name", "Рунический Куб" },
+            { "RUNIC_CUBE_BOSS.title", "Рунический Куб" },
+            { "RUNIC_CUBE.moves.RUNIC_BASTION.title", "Бастион Рун" },
+            { "RUNIC_CUBE.moves.BLADE_MATRIX.title", "Матрица Клинков" },
+            { "RUNIC_CUBE.moves.HEX_EXECUTION.title", "Гексагон Казни" },
 
             // --- Act 3 Bosses ---
             { "CHRONOS_TITAN.name", "Титан Хроноса" },

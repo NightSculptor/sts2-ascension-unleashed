@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/badge/Version-1.0.0-green.svg)]()
 [![Multiplayer](https://img.shields.io/badge/Multiplayer-Co--Op%20Compatible-brightgreen.svg)]()
 
-**Ascension Unleashed** is a massive expansion mod for **Slay the Spire 2**, adding **79 new cards**, **12 unique relics**, **10 custom act bosses** (including the Act 4 Spire Heart), and full multiplayer co-op support!
+**Ascension Unleashed** is a massive expansion mod for **Slay the Spire 2**, adding **79 new cards**, **12 unique relics**, **11 custom act bosses** (including The Runic Cube and the Act 4 Spire Heart), and full multiplayer co-op support!
 
 ---
 
@@ -18,9 +18,9 @@
   * **Necrobinder**: Osty summon synergies, soul harvests, and negative effect redirection.
   * **Regent**: Star-forging, hovering blade orbital mechanics, and royal edicts.
 * 🏺 **12 Custom Relics**: Unique game-changing relics supporting defensive, offensive, and combo builds.
-* 👹 **10 Custom Act Bosses**:
+* 👹 **11 Custom Act Bosses**:
   * **Act 1**: Alchemical Chimera, Spire Architect.
-  * **Act 2**: Clockwork Colossus, Sanguine Inquisitor, The Puppeteer.
+  * **Act 2**: Clockwork Colossus, Sanguine Inquisitor, The Puppeteer, **The Runic Cube**.
   * **Act 3**: Chronos Titan, Astral Devourer, Mirrored Sovereign.
   * **Act 4**: **The Spire Heart** (900 HP, Beat of Death, Invincible phase, custom mechanics).
 * 👥 **Full Multiplayer Co-Op Support**: Completely synchronized combat, status scaling, and specialized co-op cards (e.g. *Egoist*, *Divert & Scatter*, *Soul Transfusion*).

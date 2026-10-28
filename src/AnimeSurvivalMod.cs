@@ -1069,7 +1069,8 @@ namespace AnimeSurvivalMod
         {
             ModelDb.Encounter<MirroredSovereignBoss>().Id,
             ModelDb.Encounter<AlchemicalChimeraBoss>().Id,
-            ModelDb.Encounter<NullExecutionerBoss>().Id
+            ModelDb.Encounter<NullExecutionerBoss>().Id,
+            ModelDb.Encounter<RunicCubeBossEncounter>().Id
         };
 
         public static readonly HashSet<ModelId> Act3BossIds = new HashSet<ModelId>
@@ -1088,6 +1089,7 @@ namespace AnimeSurvivalMod
             ModelDb.Encounter<MirroredSovereignBoss>().Id,
             ModelDb.Encounter<AlchemicalChimeraBoss>().Id,
             ModelDb.Encounter<NullExecutionerBoss>().Id,
+            ModelDb.Encounter<RunicCubeBossEncounter>().Id,
             ModelDb.Encounter<ChronosTitanBoss>().Id,
             ModelDb.Encounter<AstralDevourerBoss>().Id,
             ModelDb.Encounter<SpireArchitectBoss>().Id,
@@ -1123,7 +1125,8 @@ namespace AnimeSurvivalMod
                 {
                     ModelDb.Encounter<MirroredSovereignBoss>(),
                     ModelDb.Encounter<AlchemicalChimeraBoss>(),
-                    ModelDb.Encounter<NullExecutionerBoss>()
+                    ModelDb.Encounter<NullExecutionerBoss>(),
+                    ModelDb.Encounter<RunicCubeBossEncounter>()
                 };
             }
             if (actIdx >= 3)
@@ -1683,6 +1686,10 @@ namespace AnimeSurvivalMod
                 {
                     args[0] = "NULL_EXECUTIONER_BOSS";
                 }
+                else if (norm == "RUNICCUBE" || norm == "CUBE" || norm == "RUBIK" || norm == "RUBIKSCUBE" || norm == "RUNIC" || norm == "RUNICCUBEBOSS")
+                {
+                    args[0] = "RUNIC_CUBE_BOSS_ENCOUNTER";
+                }
                 // Act 3 Bosses
                 else if (norm == "CHRONOSTITAN" || norm == "TITAN")
                 {
@@ -1892,6 +1899,10 @@ namespace AnimeSurvivalMod
                     AttachCustomSprite(__result, _nullExecutionerTexture, new Vector2(0.50f, 0.50f), new Vector2(0f, -270f), new Vector2(-210f, -540f), new Vector2(420f, 540f), new Vector2(0f, -570f), new Vector2(0f, -270f), isFloating: false);
                 }
             }
+            else if (__instance is RunicCubeBoss runicCubeBoss)
+            {
+                AttachRunicCubeVisuals(__result, runicCubeBoss);
+            }
             // Act 3 Bosses
             else if (__instance is ChronosTitan)
             {
@@ -2031,6 +2042,94 @@ namespace AnimeSurvivalMod
             catch (Exception ex)
             {
                 Log.Error($"[AnimeSurvivalMod] Failed to attach custom sprite: {ex}");
+            }
+        }
+
+        private static void AttachRunicCubeVisuals(NCreatureVisuals visuals, RunicCubeBoss boss)
+        {
+            if (visuals == null) return;
+            try
+            {
+                // 1. Hide and disable original Spine node
+                var oldVisuals = visuals.GetNodeOrNull<Node2D>("%Visuals");
+                if (oldVisuals != null)
+                {
+                    oldVisuals.Visible = false;
+                    oldVisuals.ProcessMode = Node.ProcessModeEnum.Disabled;
+                    oldVisuals.Name = "OriginalSpine_Disabled";
+                    oldVisuals.UniqueNameInOwner = false;
+                }
+
+                // 2. Clear SpineBody backing field to prevent Spine errors
+                typeof(NCreatureVisuals).GetField("<SpineBody>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance)
+                    ?.SetValue(visuals, null);
+
+                // 3. Create native Sprite2D node directly
+                string assetDir = Path.Combine(GetImagesDir(), "rubik_boss");
+                var sprite = new Sprite2D
+                {
+                    Name = "Visuals",
+                    Centered = true,
+                    Position = new Vector2(0f, -270f),
+                    Scale = new Vector2(1.2f, 1.2f),
+                    UniqueNameInOwner = true
+                };
+                visuals.AddChild(sprite);
+                if (visuals.Owner != null) sprite.Owner = visuals.Owner;
+                else sprite.Owner = visuals;
+
+                // Update _body field so STS2 engine treats this sprite as the creature's body
+                typeof(NCreatureVisuals).GetField("_body", BindingFlags.NonPublic | BindingFlags.Instance)
+                    ?.SetValue(visuals, sprite);
+
+                // 4. Create native Timer for smooth 22 FPS spritesheet turning animation (~0.7s per turn)
+                var timer = new Timer
+                {
+                    WaitTime = 1.0 / 22.0,
+                    Autostart = true
+                };
+                sprite.AddChild(timer);
+
+                var controller = new RunicCubeVisualsController(sprite, assetDir);
+                timer.Timeout += controller.OnFrameTick;
+                timer.Start();
+
+                boss.RegisterVisualsController(controller);
+
+                // 5. Add smooth idle floating tween directly (runs at full 60 FPS)
+                try
+                {
+                    var tween = sprite.CreateTween();
+                    tween.SetLoops();
+                    tween.TweenProperty(sprite, "position:y", -270f - 12f, 1.8)
+                        .SetTrans(Tween.TransitionType.Sine)
+                        .SetEase(Tween.EaseType.InOut);
+                    tween.TweenProperty(sprite, "position:y", -270f, 1.8)
+                        .SetTrans(Tween.TransitionType.Sine)
+                        .SetEase(Tween.EaseType.InOut);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"[AnimeSurvivalMod] Error starting RunicCube tween: {ex}");
+                }
+
+                // 6. Hitbox & markers
+                var bounds = visuals.GetNodeOrNull<Control>("%Bounds");
+                if (bounds != null)
+                {
+                    bounds.Position = new Vector2(-200f, -540f);
+                    bounds.Size = new Vector2(400f, 540f);
+                }
+                var intentPos = visuals.GetNodeOrNull<Marker2D>("%IntentPos");
+                if (intentPos != null) intentPos.Position = new Vector2(0f, -560f);
+                var centerPos = visuals.GetNodeOrNull<Marker2D>("%CenterPos");
+                if (centerPos != null) centerPos.Position = new Vector2(0f, -270f);
+
+                Log.Info("[AnimeSurvivalMod] RunicCubeBoss native Sprite2D and Timer attached successfully!");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[AnimeSurvivalMod] Error attaching RunicCube visuals: {ex}");
             }
         }
     }
